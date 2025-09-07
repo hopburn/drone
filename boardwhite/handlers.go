@@ -42,6 +42,8 @@ func (s *Service) RegisterHandlers(ctx context.Context, registry tg.HandlerRegis
 	registry.RegisterHandler(tele.OnText, "OnOborona", withContext(ctx, s.OnOborona))
 	registry.RegisterHandler(tele.OnText, "OnUpdateOkr", withContext(ctx, s.OnUpdateOkr))
 	registry.RegisterHandler(tele.OnText, "OnRemoveOkr", withContext(ctx, s.OnRemoveOkr))
+	registry.RegisterHandler(tele.OnText, "OnMeetup", withContext(ctx, s.OnMeetup))
+	registry.RegisterHandler(tele.OnCallback, "OnMeetupCallback", withContext(ctx, s.OnMeetupCallback))
 }
 
 func withContext(ctx context.Context, f func(context.Context, tele.Context) error) tele.HandlerFunc {

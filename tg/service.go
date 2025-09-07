@@ -21,6 +21,7 @@ type Client interface {
 	SendMonospace(threadID int, text string) (int, error)
 	SendMarkdownV2(threadID int, text string) (int, error)
 	SendText(threadID int, text string) (int, error)
+	SendTextWithMarkup(threadID int, text string, markup *tele.ReplyMarkup) (int, error)
 	SendSpoilerLink(threadID int, header, link string) (int, error)
 	SendSticker(threadID int, stickerID string) (int, error)
 	ReplyWithSticker(messageID int, stickerID string) (int, error)
@@ -236,6 +237,18 @@ func (s *Service) SendText(threadID int, text string) (int, error) {
 	})
 	if err != nil {
 		return 0, fmt.Errorf("send text %q: %w", text, err)
+	}
+
+	return message.ID, nil
+}
+
+func (s *Service) SendTextWithMarkup(threadID int, text string, markup *tele.ReplyMarkup) (int, error) {
+	message, err := s.bot.Send(s.chatID, text, &tele.SendOptions{
+		ThreadID:    threadID,
+		ReplyMarkup: markup,
+	})
+	if err != nil {
+		return 0, fmt.Errorf("send text with markup %q: %w", text, err)
 	}
 
 	return message.ID, nil
