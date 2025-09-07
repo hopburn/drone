@@ -36,6 +36,8 @@ const (
 
 	keyOkrValues        = "boardwhite:okr:values"
 	keyOkrPinnedMessage = "boardwhite:okr:pinned_message"
+
+	keyMeetupLocations = "boardwhite:meetup:locations"
 )
 
 var (
